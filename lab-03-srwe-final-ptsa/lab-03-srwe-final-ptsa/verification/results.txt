@@ -1,0 +1,10 @@
+! Output captured during the lab
+
+--- S1: show etherchannel summary ---
+[paste]
+
+--- R1: show ip interface brief ---
+[paste]
+
+--- PC-A: ipconfig ---
+[paste]
