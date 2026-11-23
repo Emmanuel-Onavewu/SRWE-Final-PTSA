@@ -1,0 +1,64 @@
+! Configuration commands used in this lab (not a running-config export)
+no ip domain-lookup
+hostname S1
+banner motd #Authorized access only!#
+
+security passwords min-length 10
+enable secret <REDACTED>
+service password-encryption
+line console 0
+ password <REDACTED>
+ login
+ logging synchronous
+
+username admin secret <REDACTED>
+ip domain-name ccna-ptsa.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+
+vlan 2
+ name Bikes
+vlan 3
+ name Trikes
+vlan 4
+ name Management
+vlan 5
+ name Parking
+vlan 6
+ name Native
+
+interface Vlan4
+ description Management SVI
+ ip address 10.19.8.98 255.255.255.248
+ no shutdown
+ip default-gateway 10.19.8.97
+
+interface range FastEthernet0/1-2
+ description EtherChannel to S2
+ switchport mode trunk
+ switchport trunk native vlan 6
+ channel-group 1 mode active
+interface Port-channel1
+ switchport mode trunk
+ switchport trunk native vlan 6
+interface FastEthernet0/5
+ description Trunk to R1 G0/0/1
+ switchport mode trunk
+ switchport trunk native vlan 6
+
+interface FastEthernet0/6
+ description PC-A
+ switchport mode access
+ switchport access vlan 2
+ switchport port-security
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky
+
+interface range FastEthernet0/3-4, FastEthernet0/7-24, GigabitEthernet0/1-2
+ description Unused port - shutdown
+ switchport mode access
+ switchport access vlan 5
+ shutdown
