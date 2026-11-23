@@ -6,9 +6,6 @@ mode: one router, two switches and two PCs. The router provides
 router-on-a-stick inter-VLAN routing and DHCP, the switches share a
 LACP EtherChannel, and every device is hardened with SSH.
 
-## Topology
-![Topology](screenshots/01-topology.png)
-
 ## IP addressing and subnetting
 The lab gave each router subinterface an address with a prefix. The
 prefix fixes the block size, which fixes the network and usable range.
